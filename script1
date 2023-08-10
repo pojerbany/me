@@ -1,0 +1,16 @@
+# Specify the directory path where you want to search for files
+$directoryPath = "C:\Your\Directory\Path"
+
+# Specify the date for filtering
+$targetDate = Get-Date "2023-08-07"
+
+# Get all files in the specified directory that match the criteria
+$matchingFiles = Get-ChildItem -Path $directoryPath -File | Where-Object {
+    $_.Length -lt 3kb -and $_.CreationTime.Date -eq $targetDate.Date
+}
+
+# Count the number of matching files
+$numberOfFiles = $matchingFiles.Count
+
+# Display the result
+Write-Host "Number of files with size < 3KB and creation date 2023-08-07: $numberOfFiles"
