@@ -1,16 +1,44 @@
-# Specify the directory path where you want to search for files
-$directoryPath = "C:\Your\Directory\Path"
+The "Projekt IAM" project focuses on introducing Just-In-Time (JIT) access methods, which pose extra difficulties, especially when dealing with many web applications. This document discusses the main problems and suggests possible solutions.
 
-# Specify the date for filtering
-$targetDate = Get-Date "2023-08-07"
+One significant problem is handling a large number of web apps. When there are up to 800 platforms (or even just 350 in complex setups), it can quickly reach the system's limits.
 
-# Get all files in the specified directory that match the criteria
-$matchingFiles = Get-ChildItem -Path $directoryPath -File | Where-Object {
-    $_.Length -lt 3kb -and $_.CreationTime.Date -eq $targetDate.Date
-}
+To tackle this issue, we explore the idea of creating and removing platforms dynamically. This could help use resources more efficiently and overcome system limits. However, for infrastructure identities, dynamic platform creation might not be needed.
 
-# Count the number of matching files
-$numberOfFiles = $matchingFiles.Count
+Another solution we consider is separating identities. This means making separate accounts for applications and infrastructure, or even individual parts of the infrastructure. This could give us more flexibility and scalability in managing JIT access.
 
-# Display the result
-Write-Host "Number of files with size < 3KB and creation date 2023-08-07: $numberOfFiles"
+In the face of JIT access management challenges, this document from the "Projekt IAM" project offers valuable insights on how to overcome them and improve the JIT implementation, especially for a large number of web applications.
+
+
+
+
+====================
+
+
+Password Rotation Policy: You can define policies for automatically rotating passwords for privileged accounts at regular intervals. This helps ensure that passwords are regularly updated to mitigate the risk of unauthorized access.
+
+Password Complexity Policies: CyberArk allows you to set password complexity requirements, such as minimum length, character types (e.g., uppercase, lowercase, special characters), and history restrictions to ensure strong passwords are used.
+
+Session Recording Policies: You can configure policies to record sessions initiated through the PVWA, ensuring that all actions taken by privileged users are logged for auditing and compliance purposes.
+
+Access Control Policies: Define who has access to the PVWA and what level of access they have. Implement role-based access control (RBAC) to restrict access to specific functionalities within the PVWA.
+
+Authentication Policies: Configure authentication policies to ensure that users accessing the PVWA are authenticated securely, such as through multi-factor authentication (MFA) or single sign-on (SSO) integration.
+
+Approval Workflow Policies: Set up approval workflows for privileged access requests, ensuring that access to sensitive resources is granted only after appropriate authorization.
+
+Session Timeouts and Idle Session Policies: Define session timeout and idle session policies to automatically log out users from the PVWA after a period of inactivity or after a specified session duration.
+
+Account Lockout Policies: Implement account lockout policies to protect against brute-force attacks by locking out accounts after a certain number of failed login attempts.
+
+Password Expiry Notifications: Configure policies to send notifications to privileged users when their passwords are about to expire, encouraging timely password changes.
+
+Password Reconciliation Policies: Automate the process of verifying and reconciling passwords to ensure that they match the stored values in the password vault.
+
+Integration with External Systems: Customize policies to integrate the PVWA with other security and authentication systems, such as Active Directory or LDAP.
+
+These policies and configurations within the PVWA are essential for maintaining security and compliance when managing privileged accounts and sessions. They help organizations enforce best practices, reduce risks associated with privileged access, and ensure that access to critical systems is controlled and audited effectively. Keep in mind that specific policy options and features may vary based on the version and configuration of CyberArk's Privileged Access Security platform.
+
+
+
+
+
